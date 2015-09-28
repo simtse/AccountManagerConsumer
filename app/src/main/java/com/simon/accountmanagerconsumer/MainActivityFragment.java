@@ -26,6 +26,7 @@ public class MainActivityFragment extends Fragment {
 
     public static final String ACCOUNT_TYPE = "com.simon.accountsample";
     public static final String AUTH_TOKEN_TYPE = "com.simon.accountsample.aaa";
+    public static final String EXTRA_ADD_ACCOUNT_ON_SUCCESS = "isAddingNewAccount";
 
     private static final int INTENT_LOGIN = 44;
 
@@ -78,14 +79,12 @@ public class MainActivityFragment extends Fragment {
         if (accounts != null && accounts.length > 0) {
             account = accounts[0];
         } else {
-            account = new Account("Sample", ACCOUNT_TYPE);
+            account = new Account("", ACCOUNT_TYPE);
         }
         mAccountManager.getAuthToken(account, AUTH_TOKEN_TYPE, null, true, authTokenCallback, null);
     }
 
-    private AccountManagerCallback<Bundle> authTokenCallback = new AccountManagerCallback<Bundle>()
-
-    {
+    private AccountManagerCallback<Bundle> authTokenCallback = new AccountManagerCallback<Bundle>() {
         @Override
         public void run(AccountManagerFuture<Bundle> result) {
             Bundle bundle;
@@ -110,7 +109,6 @@ public class MainActivityFragment extends Fragment {
                 }
             } catch (OperationCanceledException e) {
                 // If signup was cancelled, force activity termination
-//                    finish();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -120,6 +118,7 @@ public class MainActivityFragment extends Fragment {
             mLoginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    intent.putExtra(EXTRA_ADD_ACCOUNT_ON_SUCCESS, true);
                     startActivityForResult(intent, INTENT_LOGIN);
                 }
             });
