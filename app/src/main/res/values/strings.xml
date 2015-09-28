@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Acc Consumer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="account_name_default">Default account name</string>
+    <string name="account_auth_token_default">Default account Auth token</string>
+    <string name="account_other_data_default">Default account other data</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="no_account_found">No Account found. Press to login</string>
+    <string name="login">Login</string>
+    <string name="recheck">Recheck</string>
+
+</resources>
