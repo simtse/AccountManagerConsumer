@@ -1,5 +1,6 @@
 package com.simon.accountmanagerconsumer;
 
+import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
@@ -72,8 +73,14 @@ public class MainActivityFragment extends Fragment {
 
     private void consumeAccountInfo() {
         // Ask for an auth token
-        mAccountManager.getAuthTokenByFeatures(ACCOUNT_TYPE, AUTH_TOKEN_TYPE, null, getActivity(), null, null, authTokenCallback, null);
-
+        Account[] accounts = mAccountManager.getAccountsByType(ACCOUNT_TYPE);
+        Account account;
+        if (accounts != null && accounts.length > 0) {
+            account = accounts[0];
+        } else {
+            account = new Account("Sample", ACCOUNT_TYPE);
+        }
+        mAccountManager.getAuthToken(account, AUTH_TOKEN_TYPE, null, true, authTokenCallback, null);
     }
 
     private AccountManagerCallback<Bundle> authTokenCallback = new AccountManagerCallback<Bundle>()
